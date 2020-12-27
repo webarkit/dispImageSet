@@ -79,8 +79,8 @@ var Module = typeof Module !== 'undefined' ? Module : {};
         function (nftMarker) {
           console.log(nftMarker);
           var params = ariset.frameMalloc;
-          this.frameIbwpointer = params.frameIbwpointer;
-          this.frameimgBWsize = params.frameimgBWsize;
+          self.frameIbwpointer = params.frameIbwpointer;
+          self.frameimgBWsize = params.frameimgBWsize;
           self.pointer = nftMarker.pointer;
           self.frameimgBWsize = nftMarker.imgBWsize;
         },
