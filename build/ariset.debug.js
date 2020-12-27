@@ -48,7 +48,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     document.body.appendChild(this.canvas);
     var debugBuffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
-      this.pointer,
+      this.frameIbwpointer,
       this.frameimgBWsize
     );
     console.log(debugBuffer.length);
