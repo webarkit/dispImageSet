@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "js/index",
   "typings": "js/index",
-  "description": "dispImageSet based on ARToolKit, ported thanks to Emscripten",
+  "description": "dispImageSet based on WebARKitLib, ported thanks to Emscripten",
   "keywords": [
     "ARToolKit",
     "AR",

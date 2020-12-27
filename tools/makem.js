@@ -19,7 +19,7 @@ var arguments = process.argv;
 for (var j = 2; j < arguments.length; j++) {
 	if (arguments[j] == '--no-libar') {
 		NO_LIBAR = true;
-		console.log('Building jsartoolkit5 with --no-libar option, libar will be preserved.');
+		console.log('Building webarkitlib with --no-libar option, libar will be preserved.');
 	};
 }
 
