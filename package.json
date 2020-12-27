@@ -20,18 +20,10 @@
     "url": "https://github.com/kalwalt/dispImageSet/issues"
   },
   "dependencies": {
-    "glob": "^7.1.4",
-    "json2csv": "^4.1.5"
+    "glob": "^7.1.4"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^1.2.0",
-    "grunt-jsdoc": "^1.1.0",
-    "http-server": "^0.10.0",
-    "ink-docstrap": "^1.1.4",
-    "jsdoc": "^3.4.0",
-    "opener": "^1.4.3",
-    "qunit": "^2.4.1",
+    "http-server": "^0.12.3",
     "watch": "^0.18.0"
   },
   "scripts": {
