@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Node.js
+node_modules
+
+# Emscripten
+build/libar.bc
