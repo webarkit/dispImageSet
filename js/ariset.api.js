@@ -59,6 +59,9 @@
         markerURL,
         function (nftMarker) {
           console.log(nftMarker);
+          var params = ariset.frameMalloc;
+          this.frameIbwpointer = params.frameIbwpointer;
+          this.frameimgBWsize = params.frameimgBWsize;
           self.pointer = nftMarker.pointer;
           self.frameimgBWsize = nftMarker.imgBWsize;
         },
@@ -81,9 +84,7 @@
 
   ARiset.prototype._init = function (width, height) {
     this.id = ariset.setup(width, height);
-    var params = ariset.frameMalloc;
-    this.frameIbwpointer = params.frameIbwpointer;
-    this.frameimgBWsize = params.frameimgBWsize;
+
   };
 
   var markerCount = 0;
