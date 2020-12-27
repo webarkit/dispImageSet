@@ -26,6 +26,9 @@
     "http-server": "^0.12.3",
     "watch": "^0.18.0"
   },
+  "resolutions": {
+    "ecstatic": "^4.1.4"
+  },
   "scripts": {
     "build": "node tools/makem.js; echo Built at `date`",
     "build-no-libar": "node tools/makem.js --no-libar; echo Built at `date`",
