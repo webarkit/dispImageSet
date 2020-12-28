@@ -27,7 +27,6 @@ var HAVE_NFT = 1;
 
 var EMSCRIPTEN_ROOT = process.env.EMSCRIPTEN;
 var WEBARKITLIB_ROOT = process.env.WEBARKITLIB_ROOT || path.resolve(__dirname, '../emscripten/WebARKitLib');
-//var WEBARKITLIB_ROOT = "/home/walter/kalwalt-github/dispImageSet/emscripten/WebARKitLib"
 
 if (!EMSCRIPTEN_ROOT) {
 	console.log("\nWarning: EMSCRIPTEN environment variable not found.")
