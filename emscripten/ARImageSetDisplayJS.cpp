@@ -7,7 +7,6 @@
 #include <AR2/config.h>
 #include <AR2/imageFormat.h>
 #include <AR2/imageSet.h>
-//#include <AR2/featureSet.h>
 #include <AR2/tracking.h>
 #include <AR2/util.h>
 #include <KPM/kpm.h>
@@ -30,6 +29,7 @@ struct arIset {
 	int videoFrameSize;
   int imgBWsize;
   AR2ImageSetT *imageSet = NULL;
+  int numIset;
   int width_NFT;
 	int height_NFT;
 	int dpi_NFT;
@@ -44,8 +44,6 @@ static int gARIsetID = 0;
 extern "C" {
 
   int loadNFTMarker(arIset *arc, int surfaceSetCount,const char* filename) {
-		int i, pageNo, numIset, width, height, dpi;
-
     ARLOG("Read ImageSet.\n");
     ar2UtilRemoveExt( (char*)filename );
     arc->imageSet = ar2ReadImageSet( (char*)filename );
@@ -55,7 +53,7 @@ extern "C" {
     }
     ARLOG("  end.\n");
 
-    numIset = arc->imageSet->num;
+    arc->numIset = arc->imageSet->num;
 		arc->width_NFT = arc->imageSet->scale[0]->xsize;
 		arc->height_NFT = arc->imageSet->scale[0]->ysize;
 		arc->dpi_NFT = arc->imageSet->scale[0]->dpi;
@@ -63,7 +61,7 @@ extern "C" {
 
     ARLOGi("printing pointer imgBW: %d\n", arc->imgBW);
 
-		ARLOGi("NFT number of ImageSet: %i\n", numIset);
+		ARLOGi("NFT number of ImageSet: %i\n", arc->numIset);
 		ARLOGi("NFT marker width: %i\n", arc->width_NFT);
 		ARLOGi("NFT marker height: %i\n", arc->height_NFT);
 		ARLOGi("NFT marker dpi: %i\n", arc->dpi_NFT);
