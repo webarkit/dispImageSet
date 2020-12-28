@@ -45,16 +45,18 @@ var Module = typeof Module !== 'undefined' ? Module : {};
   };
 
   ARiset.prototype.display = function () {
+    console.log(this);
     document.body.appendChild(this.canvas);
     var debugBuffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
       this.frameIbwpointer,
       this.frameimgBWsize
     );
+    console.log(this.frameIbwpointer);
     console.log(debugBuffer.length);
     console.log(debugBuffer.BYTES_PER_ELEMENT);
     var id = new ImageData(
-      new Uint8ClampedArray(this.frameimgBWsize * 4),
+      new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
       this.canvas.width,
       this.canvas.height
     );
@@ -32922,17 +32924,17 @@ function readNFTMarker($0, $1, $2) {
   loadNFTMarker($1, $3, std____2__basic_string_char_2c_20std____2__char_traits_char__2c_20std____2__allocator_char__20___c_str_28_29_20const($2));
   HEAP32[$3 + 16 >> 2] = HEAP32[$1 + 12 >> 2];
   arLog(0, 1, 9043, $3 + 16 | 0);
-  HEAP32[$1 + 44 >> 2] = HEAP32[$1 + 44 >> 2] + 1;
+  HEAP32[$1 + 40 >> 2] = HEAP32[$1 + 40 >> 2] + 1;
   $2 = HEAP32[$1 >> 2];
   $4 = HEAP32[$1 + 12 >> 2];
-  HEAP32[$3 + 8 >> 2] = HEAP32[$1 + 20 >> 2];
+  HEAP32[$3 + 8 >> 2] = HEAP32[$1 + 16 >> 2];
   HEAP32[$3 + 4 >> 2] = $4;
   HEAP32[$3 >> 2] = $2;
   emscripten_asm_const_int(9074, 9254, $3 | 0) | 0;
-  HEAP32[$0 >> 2] = HEAP32[$1 + 32 >> 2];
-  HEAP32[$0 + 4 >> 2] = HEAP32[$1 + 36 >> 2];
-  HEAP32[$0 + 8 >> 2] = HEAP32[$1 + 40 >> 2];
-  HEAP32[$0 + 12 >> 2] = HEAP32[$1 + 20 >> 2];
+  HEAP32[$0 >> 2] = HEAP32[$1 + 28 >> 2];
+  HEAP32[$0 + 4 >> 2] = HEAP32[$1 + 32 >> 2];
+  HEAP32[$0 + 8 >> 2] = HEAP32[$1 + 36 >> 2];
+  HEAP32[$0 + 12 >> 2] = HEAP32[$1 + 16 >> 2];
   HEAP32[$0 + 16 >> 2] = HEAP32[$1 + 12 >> 2];
  }
  global$0 = $3 + 48 | 0;
@@ -37057,14 +37059,14 @@ function loadNFTMarker($0, $1, $2) {
  puts(9622);
  ar2UtilRemoveExt($2);
  $1 = ar2ReadImageSet($2);
- HEAP32[$0 + 24 >> 2] = $1;
+ HEAP32[$0 + 20 >> 2] = $1;
  if ($1) {
   puts(9637);
-  $2 = HEAP32[$0 + 24 >> 2];
-  HEAP32[$0 + 28 >> 2] = HEAP32[$2 + 4 >> 2];
+  $2 = HEAP32[$0 + 20 >> 2];
+  HEAP32[$0 + 24 >> 2] = HEAP32[$2 + 4 >> 2];
   $2 = HEAP32[HEAP32[$2 >> 2] >> 2];
-  HEAP32[$0 + 32 >> 2] = HEAP32[$2 + 4 >> 2];
-  HEAP32[$0 + 36 >> 2] = HEAP32[$2 + 8 >> 2];
+  HEAP32[$0 + 28 >> 2] = HEAP32[$2 + 4 >> 2];
+  HEAP32[$0 + 32 >> 2] = HEAP32[$2 + 8 >> 2];
   $5 = $0;
   $4 = HEAPF32[$2 + 12 >> 2];
   label$2 : {
@@ -37074,22 +37076,22 @@ function loadNFTMarker($0, $1, $2) {
    }
    $1 = -2147483648;
   }
-  HEAP32[$5 + 40 >> 2] = $1;
+  HEAP32[$5 + 36 >> 2] = $1;
   $2 = HEAP32[$2 >> 2];
   HEAP32[$0 + 12 >> 2] = $2;
   HEAP32[$3 + 96 >> 2] = $2;
   arLog(0, 1, 8848, $3 + 96 | 0);
-  HEAP32[$3 + 80 >> 2] = HEAP32[$0 + 28 >> 2];
+  HEAP32[$3 + 80 >> 2] = HEAP32[$0 + 24 >> 2];
   arLog(0, 1, 8876, $3 + 80 | 0);
-  HEAP32[$3 + 64 >> 2] = HEAP32[$0 + 32 >> 2];
+  HEAP32[$3 + 64 >> 2] = HEAP32[$0 + 28 >> 2];
   arLog(0, 1, 8904, $3 - -64 | 0);
-  HEAP32[$3 + 48 >> 2] = HEAP32[$0 + 36 >> 2];
+  HEAP32[$3 + 48 >> 2] = HEAP32[$0 + 32 >> 2];
   arLog(0, 1, 8926, $3 + 48 | 0);
-  HEAP32[$3 + 32 >> 2] = HEAP32[$0 + 40 >> 2];
+  HEAP32[$3 + 32 >> 2] = HEAP32[$0 + 36 >> 2];
   arLog(0, 1, 8949, $3 + 32 | 0);
   arLog(0, 1, 8969, 0);
   arLog(0, 1, 8983, 0);
-  HEAP32[$3 + 16 >> 2] = HEAP32[$0 + 20 >> 2];
+  HEAP32[$3 + 16 >> 2] = HEAP32[$0 + 16 >> 2];
   arLog(0, 1, 8992, $3 + 16 | 0);
   arLog(0, 1, 9012, 0);
   global$0 = $3 + 112 | 0;
@@ -41794,10 +41796,10 @@ function setup($0, $1) {
  $2 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___operator_5b_5d_28int_20const__29(33864, $3 + 12 | 0);
  $4 = HEAP32[$3 + 12 >> 2];
  $0 = Math_imul($0, $1) << 2;
- HEAP32[$2 + 20 >> 2] = $0;
+ HEAP32[$2 + 16 >> 2] = $0;
  HEAP32[$2 >> 2] = $4;
  wasm2js_i32$0 = $2, wasm2js_i32$1 = dlmalloc($0), HEAP32[wasm2js_i32$0 + 12 >> 2] = wasm2js_i32$1;
- HEAP32[$3 >> 2] = HEAP32[$2 + 20 >> 2];
+ HEAP32[$3 >> 2] = HEAP32[$2 + 16 >> 2];
  arLog(0, 1, 9258, $3);
  global$0 = $3 + 16 | 0;
  $2 = HEAP32[$2 >> 2];
@@ -42525,7 +42527,7 @@ function std____2__unique_ptr_std____2____hash_node_base_std____2____hash_node_s
 function std____2__pair_int_20const_2c_20arIset___pair_int_20const__2c_200ul__28std____2__piecewise_construct_t_2c_20std____2__tuple_int_20const____2c_20std____2__tuple____2c_20std____2____tuple_indices_0ul__2c_20std____2____tuple_indices___29($0, $1, $2) {
  var wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
  wasm2js_i32$0 = $0, wasm2js_i32$1 = HEAP32[int_20const__20std____2__forward_int_20const___28std____2__remove_reference_int_20const____type__29(std____2__tuple_element_0ul_2c_20std____2__tuple_int_20const___20___type__20std____2__get_0ul_2c_20int_20const___28std____2__tuple_int_20const____29($1)) >> 2], HEAP32[wasm2js_i32$0 >> 2] = wasm2js_i32$1;
- arIset__arIset_28_29(memset($0 + 4 | 0, 0, 48));
+ arIset__arIset_28_29(memset($0 + 4 | 0, 0, 44));
  return $0;
 }
 function $28anonymous_20namespace_29__itanium_demangle__DotSuffix__DotSuffix_28_28anonymous_20namespace_29__itanium_demangle__Node_20const__2c_20_28anonymous_20namespace_29__itanium_demangle__StringView_29($0, $1, $2) {
@@ -44108,7 +44110,7 @@ function std____2__allocator_std____2____hash_node_std____2____hash_value_type_i
   std____2____throw_length_error_28char_20const__29(9349);
   abort();
  }
- return std____2____libcpp_allocate_28unsigned_20long_2c_20unsigned_20long_29(Math_imul($1, 60), 4);
+ return std____2____libcpp_allocate_28unsigned_20long_2c_20unsigned_20long_29(Math_imul($1, 56), 4);
 }
 function $28anonymous_20namespace_29__itanium_demangle__OutputStream__OutputStream_28_29($0) {
  var wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
@@ -45118,7 +45120,7 @@ function pop_arg_long_double($0, $1) {
  wasm2js_i32$0 = $0, wasm2js_f64$0 = __trunctfdf2(HEAP32[$2 >> 2], HEAP32[$2 + 4 >> 2], HEAP32[$2 + 8 >> 2], HEAP32[$2 + 12 >> 2]), HEAPF64[wasm2js_i32$0 >> 3] = wasm2js_f64$0;
 }
 function std____2__allocator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void___20___deallocate_28std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void____2c_20unsigned_20long_29($0, $1, $2) {
- std____2____libcpp_deallocate_28void__2c_20unsigned_20long_2c_20unsigned_20long_29($1, Math_imul($2, 60), 4);
+ std____2____libcpp_deallocate_28void__2c_20unsigned_20long_2c_20unsigned_20long_29($1, Math_imul($2, 56), 4);
 }
 function merged_1v_upsample($0, $1, $2, $3, $4, $5, $6) {
  $0 = $0 | 0;
@@ -46181,8 +46183,8 @@ function std____2____compressed_pair_elem_std____2__basic_string_char_2c_20std__
  return $0;
 }
 function arIset__arIset_28_29($0) {
- HEAP32[$0 + 44 >> 2] = 0;
- HEAP32[$0 + 24 >> 2] = 0;
+ HEAP32[$0 + 40 >> 2] = 0;
+ HEAP32[$0 + 20 >> 2] = 0;
  HEAP32[$0 >> 2] = 0;
  HEAP32[$0 + 4 >> 2] = 0;
  HEAP32[$0 + 8 >> 2] = 0;
@@ -46644,7 +46646,7 @@ function $28anonymous_20namespace_29__itanium_demangle__DynamicExceptionSpec___D
  operator_20delete_28void__29($0);
 }
 function std____2__allocator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void___20___max_size_28_29_20const($0) {
- return 71582788;
+ return 76695844;
 }
 function $28anonymous_20namespace_29__itanium_demangle__FloatLiteralImpl_float____FloatLiteralImpl_28_29($0) {
  $0 = $0 | 0;

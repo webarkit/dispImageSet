@@ -26,7 +26,6 @@ struct arIset {
   int width = 0;
   int height = 0;
   ARUint8 *imgBW = NULL;
-	int videoFrameSize;
   int imgBWsize;
   AR2ImageSetT *imageSet = NULL;
   int numIset;

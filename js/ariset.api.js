@@ -26,16 +26,18 @@
   };
 
   ARiset.prototype.display = function () {
+    console.log(this);
     document.body.appendChild(this.canvas);
     var debugBuffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
       this.frameIbwpointer,
       this.frameimgBWsize
     );
+    console.log(this.frameIbwpointer);
     console.log(debugBuffer.length);
     console.log(debugBuffer.BYTES_PER_ELEMENT);
     var id = new ImageData(
-      new Uint8ClampedArray(this.frameimgBWsize * 4),
+      new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
       this.canvas.width,
       this.canvas.height
     );
