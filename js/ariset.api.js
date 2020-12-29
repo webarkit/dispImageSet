@@ -11,23 +11,29 @@
     this.id = 0;
     this.nftMarkerCount = 0;
     this.imageSetWidth = 0;
+    this.imageSetHeight = 0;
     this.frameIbwpointer = null;
     this.frameimgBWsize = null;
+    this.canvas = null;
+    this.ctx = null;
+  };
 
+  ARiset.prototype.createCanvas = function () {
     if (typeof document !== "undefined") {
       this.canvas = document.createElement("canvas");
-      this.canvas.width = width;
-      this.canvas.height = height;
+      this.canvas.width = this.imageSetWidth;
+      this.canvas.height = this.imageSetHeight;
       this.ctx = this.canvas.getContext("2d");
-    }
-    this._init(width, height);
+      console.log('canvas created');
+    };
   };
 
   ARiset.prototype.display = function () {
+    this.createCanvas();
     document.body.appendChild(this.canvas);
     var debugBuffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
-      this.frameIbwpointer ,
+      this.frameIbwpointer,
       this.frameimgBWsize
     );
     var id = new ImageData(
@@ -58,8 +64,8 @@
           var params = ariset.frameMalloc;
           self.frameIbwpointer = params.frameIbwpointer;
           self.frameimgBWsize = params.frameimgBWsize;
-          //self.pointer = nftMarker.pointer;
-          //self.frameimgBWsize = nftMarker.imgBWsize;
+          self.imageSetWidth = nftMarker.widthNFT;
+          self.imageSetHeight = nftMarker.heightNFT;
         },
         onError
       );
