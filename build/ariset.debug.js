@@ -31,8 +31,6 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     this.nftMarkerCount = 0;
     this.imageSetWidth = 0;
     this.frameIbwpointer = null;
-    this.pointer = null;
-    this.imgBW = null;
     this.frameimgBWsize = null;
 
     if (typeof document !== "undefined") {
@@ -45,16 +43,12 @@ var Module = typeof Module !== 'undefined' ? Module : {};
   };
 
   ARiset.prototype.display = function () {
-    console.log(this);
     document.body.appendChild(this.canvas);
     var debugBuffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
-      this.frameIbwpointer,
+      this.frameIbwpointer ,
       this.frameimgBWsize
     );
-    console.log(this.frameIbwpointer);
-    console.log(debugBuffer.length);
-    console.log(debugBuffer.BYTES_PER_ELEMENT);
     var id = new ImageData(
       new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
       this.canvas.width,
@@ -83,8 +77,8 @@ var Module = typeof Module !== 'undefined' ? Module : {};
           var params = ariset.frameMalloc;
           self.frameIbwpointer = params.frameIbwpointer;
           self.frameimgBWsize = params.frameimgBWsize;
-          self.pointer = nftMarker.pointer;
-          self.frameimgBWsize = nftMarker.imgBWsize;
+          //self.pointer = nftMarker.pointer;
+          //self.frameimgBWsize = nftMarker.imgBWsize;
         },
         onError
       );
