@@ -41,6 +41,7 @@
       this.frameIbwpointer,
       this.frameimgBWsize
     );
+    console.log(debugBuffer.length);
     var id = new ImageData(
       new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
       this.canvas.width,

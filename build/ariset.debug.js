@@ -44,14 +44,8 @@ var Module = typeof Module !== 'undefined' ? Module : {};
       this.canvas.id = "iSet";
       document.addEventListener('nftMarker', function(ev){
         var iSet = document.getElementById('iSet');
-        console.log(this);
-        self = this;
-        console.log(ev);
-        console.log(ev.detail.widthNFT);
         iSet.width = ev.detail.widthNFT;
         iSet.height = ev.detail.heightNFT;
-        //self.canvas.width = ev.detail.widthNFT;
-        //self.canvas.height = ev.detail.heightNFT;
       })
       this.ctx = this.canvas.getContext("2d");
       console.log('canvas created');
@@ -66,6 +60,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
       this.frameIbwpointer,
       this.frameimgBWsize
     );
+    console.log(debugBuffer.length);
     var id = new ImageData(
       new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
       this.canvas.width,
