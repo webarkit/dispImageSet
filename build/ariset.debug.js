@@ -41,12 +41,20 @@ var Module = typeof Module !== 'undefined' ? Module : {};
   ARiset.prototype.createCanvas = function () {
     if (typeof document !== "undefined") {
       this.canvas = document.createElement("canvas");
+      this.canvas.id = "iSet";
       document.addEventListener('nftMarker', function(ev){
-        this.canvas.width = ev.detail.widthNFT;
-        this.canvas.height = ev.detail.heightNFT;
-        this.ctx = this.canvas.getContext("2d");
-        console.log('canvas created');
+        var iSet = document.getElementById('iSet');
+        console.log(this);
+        self = this;
+        console.log(ev);
+        console.log(ev.detail.widthNFT);
+        iSet.width = ev.detail.widthNFT;
+        iSet.height = ev.detail.heightNFT;
+        //self.canvas.width = ev.detail.widthNFT;
+        //self.canvas.height = ev.detail.heightNFT;
       })
+      this.ctx = this.canvas.getContext("2d");
+      console.log('canvas created');
     };
   };
 
@@ -88,7 +96,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
           self.frameimgBWsize = params.frameimgBWsize;
           var nftEvent = new CustomEvent('nftMarker', {
             detail: {
-              widthNFT: nftMarker.widthNFT, heightNFT: nftMarker.heightNFT
+              widthNFT: nftMarker.width, heightNFT: nftMarker.height
             }
           });
           document.dispatchEvent(nftEvent);
@@ -41757,6 +41765,27 @@ function $28anonymous_20namespace_29__itanium_demangle__GlobalQualifiedName__pri
  $28anonymous_20namespace_29__itanium_demangle__Node__print_28_28anonymous_20namespace_29__itanium_demangle__OutputStream__29_20const(HEAP32[$0 + 8 >> 2], $1);
  global$0 = $2 + 16 | 0;
 }
+function setup($0, $1) {
+ $0 = $0 | 0;
+ $1 = $1 | 0;
+ var $2 = 0, $3 = 0, $4 = 0, wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
+ $3 = global$0 - 16 | 0;
+ global$0 = $3;
+ $2 = HEAP32[8471];
+ HEAP32[8471] = $2 + 1;
+ HEAP32[$3 + 12 >> 2] = $2;
+ $2 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___operator_5b_5d_28int_20const__29(33864, $3 + 12 | 0);
+ $4 = HEAP32[$3 + 12 >> 2];
+ $0 = Math_imul($0, $1) << 2 | 1;
+ HEAP32[$2 + 16 >> 2] = $0;
+ HEAP32[$2 >> 2] = $4;
+ wasm2js_i32$0 = $2, wasm2js_i32$1 = dlmalloc($0), HEAP32[wasm2js_i32$0 + 12 >> 2] = wasm2js_i32$1;
+ HEAP32[$3 >> 2] = HEAP32[$2 + 16 >> 2];
+ arLog(0, 1, 9258, $3);
+ global$0 = $3 + 16 | 0;
+ $2 = HEAP32[$2 >> 2];
+ return $2 | 0;
+}
 function $28anonymous_20namespace_29__itanium_demangle__Node__20_28anonymous_20namespace_29__itanium_demangle__AbstractManglingParser__28anonymous_20namespace_29__itanium_demangle__ManglingParser__28anonymous_20namespace_29__DefaultAllocator__2c_20_28anonymous_20namespace_29__DefaultAllocator___make__28anonymous_20namespace_29__itanium_demangle__DtorName_2c_20_28anonymous_20namespace_29__itanium_demangle__Node____28_28anonymous_20namespace_29__itanium_demangle__Node___29($0, $1) {
  return $28anonymous_20namespace_29__itanium_demangle__DtorName__20_28anonymous_20namespace_29__DefaultAllocator__makeNode__28anonymous_20namespace_29__itanium_demangle__DtorName_2c_20_28anonymous_20namespace_29__itanium_demangle__Node____28_28anonymous_20namespace_29__itanium_demangle__Node___29($0 + 416 | 0, $1);
 }
@@ -41790,27 +41819,6 @@ function $28anonymous_20namespace_29__itanium_demangle__LiteralOperator__printLe
  $28anonymous_20namespace_29__itanium_demangle__OutputStream__operator___28_28anonymous_20namespace_29__itanium_demangle__StringView_29($1, $2);
  $28anonymous_20namespace_29__itanium_demangle__Node__print_28_28anonymous_20namespace_29__itanium_demangle__OutputStream__29_20const(HEAP32[$0 + 8 >> 2], $1);
  global$0 = $2 + 16 | 0;
-}
-function setup($0, $1) {
- $0 = $0 | 0;
- $1 = $1 | 0;
- var $2 = 0, $3 = 0, $4 = 0, wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
- $3 = global$0 - 16 | 0;
- global$0 = $3;
- $2 = HEAP32[8471];
- HEAP32[8471] = $2 + 1;
- HEAP32[$3 + 12 >> 2] = $2;
- $2 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___operator_5b_5d_28int_20const__29(33864, $3 + 12 | 0);
- $4 = HEAP32[$3 + 12 >> 2];
- $0 = Math_imul($0, $1) << 2;
- HEAP32[$2 + 16 >> 2] = $0;
- HEAP32[$2 >> 2] = $4;
- wasm2js_i32$0 = $2, wasm2js_i32$1 = dlmalloc($0), HEAP32[wasm2js_i32$0 + 12 >> 2] = wasm2js_i32$1;
- HEAP32[$3 >> 2] = HEAP32[$2 + 16 >> 2];
- arLog(0, 1, 9258, $3);
- global$0 = $3 + 16 | 0;
- $2 = HEAP32[$2 >> 2];
- return $2 | 0;
 }
 function $28anonymous_20namespace_29__itanium_demangle__ReferenceType__20_28anonymous_20namespace_29__DefaultAllocator__makeNode__28anonymous_20namespace_29__itanium_demangle__ReferenceType_2c_20_28anonymous_20namespace_29__itanium_demangle__Node___2c_20_28anonymous_20namespace_29__itanium_demangle__ReferenceKind__28_28anonymous_20namespace_29__itanium_demangle__Node___2c_20_28anonymous_20namespace_29__itanium_demangle__ReferenceKind___29($0, $1, $2) {
  return $28anonymous_20namespace_29__itanium_demangle__ReferenceType__ReferenceType_28_28anonymous_20namespace_29__itanium_demangle__Node_20const__2c_20_28anonymous_20namespace_29__itanium_demangle__ReferenceKind_29($28anonymous_20namespace_29__BumpPointerAllocator__allocate_28unsigned_20long_29($0, 20), HEAP32[$1 >> 2], HEAP32[$2 >> 2]);

@@ -22,12 +22,14 @@
   ARiset.prototype.createCanvas = function () {
     if (typeof document !== "undefined") {
       this.canvas = document.createElement("canvas");
+      this.canvas.id = "iSet";
       document.addEventListener('nftMarker', function(ev){
-        this.canvas.width = ev.detail.widthNFT;
-        this.canvas.height = ev.detail.heightNFT;
-        this.ctx = this.canvas.getContext("2d");
-        console.log('canvas created');
+        var iSet = document.getElementById('iSet');
+        iSet.width = ev.detail.widthNFT;
+        iSet.height = ev.detail.heightNFT;
       })
+      this.ctx = this.canvas.getContext("2d");
+      console.log('canvas created');
     };
   };
 
@@ -69,7 +71,7 @@
           self.frameimgBWsize = params.frameimgBWsize;
           var nftEvent = new CustomEvent('nftMarker', {
             detail: {
-              widthNFT: nftMarker.widthNFT, heightNFT: nftMarker.heightNFT
+              widthNFT: nftMarker.width, heightNFT: nftMarker.height
             }
           });
           document.dispatchEvent(nftEvent);
