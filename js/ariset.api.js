@@ -23,11 +23,6 @@
     if (typeof document !== "undefined") {
       this.canvas = document.createElement("canvas");
       this.canvas.id = "iSet";
-      document.addEventListener('nftMarker', function(ev){
-        var iSet = document.getElementById('iSet');
-        iSet.width = ev.detail.widthNFT;
-        iSet.height = ev.detail.heightNFT;
-      })
       this.ctx = this.canvas.getContext("2d");
       console.log('canvas created');
     };
@@ -36,27 +31,35 @@
   ARiset.prototype.display = function () {
     this.createCanvas();
     document.body.appendChild(this.canvas);
-    var debugBuffer = new Uint8ClampedArray(
-      Module.HEAPU8.buffer,
-      this.frameIbwpointer,
-      this.frameimgBWsize
-    );
-    console.log(debugBuffer.length);
-    var id = new ImageData(
-      new Uint8ClampedArray(this.canvas.width * this.canvas.height * 4),
-      this.canvas.width,
-      this.canvas.height
-    );
-    for (var i = 0, j = 0; i < debugBuffer.length; i++, j += 4) {
-      var v = debugBuffer[i];
-      id.data[j + 0] = v;
-      id.data[j + 1] = v;
-      id.data[j + 2] = v;
-      id.data[j + 3] = 255;
-    }
 
-    this.ctx.putImageData(id, 0, 0);
-    //Module._free(debugBuffer);
+    var self = this;
+    document.addEventListener('nftMarker', function(ev) {
+      self.canvas.width = ev.detail.widthNFT;
+      self.canvas.height = ev.detail.heightNFT;
+
+      var debugBuffer = new Uint8ClampedArray(
+        Module.HEAPU8.buffer,
+        self.frameIbwpointer,
+        self.frameimgBWsize
+      );
+      console.log(debugBuffer.length);
+      var id = new ImageData(
+        new Uint8ClampedArray(self.canvas.width * self.canvas.height * 4),
+        self.canvas.width,
+        self.canvas.height
+      );
+      for (var i = 0, j = 0; i < debugBuffer.length; i++, j += 4) {
+        var v = debugBuffer[i];
+        id.data[j + 0] = v;
+        id.data[j + 1] = v;
+        id.data[j + 2] = v;
+        id.data[j + 3] = 255;
+      }
+
+      self.ctx.putImageData(id, 0, 0);
+
+      Module._free(debugBuffer);
+    })
   };
 
   ARiset.prototype.loadNFTMarker = function (markerURL, onSuccess, onError) {

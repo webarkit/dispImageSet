@@ -36,3 +36,6 @@ node_modules
 
 # Emscripten
 build/libar.bc
+
+# MacOS
+.DS_Store
