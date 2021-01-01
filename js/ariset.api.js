@@ -10,8 +10,10 @@
   var ARiset = function (width, height) {
     this.id = 0;
     this.nftMarkerCount = 0;
+    this.numIset = 0;
     this.imageSetWidth = 0;
     this.imageSetHeight = 0;
+    this.dpi = 0;
     this.frameIbwpointer = null;
     this.frameimgBWsize = null;
     this.canvas = null;
@@ -36,13 +38,32 @@
     document.addEventListener('nftMarker', function(ev) {
       self.canvas.width = ev.detail.widthNFT;
       self.canvas.height = ev.detail.heightNFT;
+      self.numIset = ev.detail.numIset;
+      self.imageSetWidth = ev.detail.widthNFT;
+      self.imageSetHeight = ev.detail.heightNFT;
+      self.dpi = ev.detail.dpi;
+
+      var divNumIset = document.getElementById("numIset");
+      var contentNI = document.createTextNode(self.numIset);
+      divNumIset.appendChild(contentNI);
+
+      var divW = document.getElementById("widthNFT");
+      var contentW = document.createTextNode(self.imageSetWidth);
+      divW.appendChild(contentW);
+
+      var divH = document.getElementById("heightNFT");
+      var contentH = document.createTextNode(self.imageSetHeight);
+      divH.appendChild(contentH);
+
+      var divDpi = document.getElementById("dpiNFT");
+      var contentDpi = document.createTextNode(self.dpi);
+      divDpi.appendChild(contentDpi);
 
       var debugBuffer = new Uint8ClampedArray(
         Module.HEAPU8.buffer,
         self.frameIbwpointer,
         self.frameimgBWsize
       );
-      console.log(debugBuffer.length);
       var id = new ImageData(
         new Uint8ClampedArray(self.canvas.width * self.canvas.height * 4),
         self.canvas.width,
@@ -75,7 +96,10 @@
           self.frameimgBWsize = params.frameimgBWsize;
           var nftEvent = new CustomEvent('nftMarker', {
             detail: {
-              widthNFT: nftMarker.width, heightNFT: nftMarker.height
+              numIset: nftMarker.numIset,
+              widthNFT: nftMarker.width,
+              heightNFT: nftMarker.height,
+              dpi: nftMarker.dpi
             }
           });
           document.dispatchEvent(nftEvent);
