@@ -43,22 +43,6 @@
       self.imageSetHeight = ev.detail.heightNFT;
       self.dpi = ev.detail.dpi;
 
-      var divNumIset = document.getElementById("numIset");
-      var contentNI = document.createTextNode(self.numIset);
-      divNumIset.appendChild(contentNI);
-
-      var divW = document.getElementById("widthNFT");
-      var contentW = document.createTextNode(self.imageSetWidth);
-      divW.appendChild(contentW);
-
-      var divH = document.getElementById("heightNFT");
-      var contentH = document.createTextNode(self.imageSetHeight);
-      divH.appendChild(contentH);
-
-      var divDpi = document.getElementById("dpiNFT");
-      var contentDpi = document.createTextNode(self.dpi);
-      divDpi.appendChild(contentDpi);
-
       var debugBuffer = new Uint8ClampedArray(
         Module.HEAPU8.buffer,
         self.frameIbwpointer,
