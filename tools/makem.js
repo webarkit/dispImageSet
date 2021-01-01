@@ -44,6 +44,7 @@ var OUTPUT_PATH = path.resolve(__dirname, '../build/') + '/';
 
 var BUILD_DEBUG_FILE = 'ariset.debug.js';
 var BUILD_WASM_FILE = 'ariset_wasm.js';
+var BUILD_WASM_ES6_FILE = 'ariset_ES6_wasm.js';
 var BUILD_MIN_FILE = 'ariset.min.js';
 
 var MAIN_SOURCES = [
@@ -161,6 +162,9 @@ FLAGS += ' -s USE_ZLIB=1';
 FLAGS += ' -s USE_LIBJPEG';
 FLAGS += ' --memory-init-file 0 '; // for memless file
 
+var WASM_FLAGS = ' -s SINGLE_FILE=1 '
+var ES6_FLAGS = ' -s EXPORT_ES6=1 -s USE_ES6_IMPORT_META=0 -s MODULARIZE=1 ';
+
 var PRE_FLAGS = ' --pre-js ' + path.resolve(__dirname, '../js/ariset.api.js') +' ';
 
 FLAGS += ' --bind ';
@@ -216,20 +220,27 @@ var compile_arlib = format(EMCC + ' ' + INCLUDES + ' '
 	+ FLAGS + ' ' + DEFINES + ' -r -o {OUTPUT_PATH}libar.bc ',
 		OUTPUT_PATH);
 
+var ALL_BC = " {OUTPUT_PATH}libar.bc ";
+
 var compile_combine = format(EMCC + ' ' + INCLUDES + ' '
-	+ ' {OUTPUT_PATH}libar.bc ' + MAIN_SOURCES + PRE_FLAGS
+	+ ALL_BC + MAIN_SOURCES + PRE_FLAGS
 	+ FLAGS + ' -s WASM=0' + ' '  + DEBUG_FLAGS + DEFINES + ' -o {OUTPUT_PATH}{BUILD_FILE} ',
 	 OUTPUT_PATH, OUTPUT_PATH, BUILD_DEBUG_FILE);
 
 var compile_combine_min = format(EMCC + ' '  + INCLUDES + ' '
-	+ ' {OUTPUT_PATH}libar.bc ' + MAIN_SOURCES + PRE_FLAGS
+	+ ALL_BC + MAIN_SOURCES + PRE_FLAGS
 	+ FLAGS + ' -s WASM=0' + ' ' + DEFINES  + ' -o {OUTPUT_PATH}{BUILD_FILE} ',
  	OUTPUT_PATH, OUTPUT_PATH, BUILD_MIN_FILE);
 
 var compile_wasm = format(EMCC + ' ' + INCLUDES + ' '
-	+ ' {OUTPUT_PATH}libar.bc ' + MAIN_SOURCES
-	+ FLAGS + DEFINES + ' -o {OUTPUT_PATH}{BUILD_FILE} ',
-	 OUTPUT_PATH, OUTPUT_PATH, BUILD_WASM_FILE);
+	+ ALL_BC + MAIN_SOURCES
+	+ FLAGS + WASM_FLAGS + DEFINES + PRE_FLAGS + ' -o {OUTPUT_PATH}{BUILD_FILE} ',
+	OUTPUT_PATH, OUTPUT_PATH, BUILD_WASM_FILE);
+ 
+ var compile_wasm_es6 = format(EMCC + ' ' + INCLUDES + ' '
+	+ ALL_BC + MAIN_SOURCES
+	+ FLAGS + WASM_FLAGS + DEFINES + ES6_FLAGS + ' -o {OUTPUT_PATH}{BUILD_FILE} ',
+	OUTPUT_PATH, OUTPUT_PATH, BUILD_WASM_ES6_FILE);
 
 /*
  * Run commands
@@ -272,7 +283,8 @@ function addJob(job) {
 addJob(clean_builds);
 addJob(compile_arlib);
 addJob(compile_combine);
-//addJob(compile_wasm);
+addJob(compile_wasm);
+addJob(compile_wasm_es6);
 addJob(compile_combine_min);
 
 if (NO_LIBAR == true){
