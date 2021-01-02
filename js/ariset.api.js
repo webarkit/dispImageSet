@@ -67,11 +67,12 @@
     })
   };
 
-  ARiset.prototype.loadNFTMarker = function (markerURL, onSuccess, onError) {
+  ARiset.prototype.loadNFTMarker = function (markerURL, numImage, onSuccess, onError) {
     var self = this;
     if (markerURL) {
       return ariset.readNFTMarker(
         this.id,
+        numImage,
         markerURL,
         function (nftMarker) {
           console.log(nftMarker);
@@ -112,7 +113,7 @@
 
   var markerCount = 0;
 
-  function readNFTMarker(arId, url, callback, onError) {
+  function readNFTMarker(arId, numImage, url, callback, onError) {
     var mId = markerCount++;
     var prefix = "/markerNFT_" + mId;
     var filename1 = prefix + ".fset";
@@ -130,7 +131,7 @@
               url + ".fset3",
               filename3,
               function () {
-                var id = Module._readNFTMarker(arId, prefix);
+                var id = Module._readNFTMarker(arId, numImage, prefix);
                 if (callback) callback(id);
               },
               function(errorNumber) {
