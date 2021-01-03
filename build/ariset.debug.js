@@ -42,9 +42,12 @@ var Module = typeof Module !== 'undefined' ? Module : {};
 
   ARiset.prototype.createCanvas = function () {
     if (typeof document !== "undefined") {
+      var self = this;
       this.canvas = document.createElement("canvas");
-      this.canvas.id = "iSet";
-      this.ctx = this.canvas.getContext("2d");
+      document.addEventListener('nftMarker', function (ev) {
+        self.canvas.id = "iSet_" + ev.detail.numImage;
+      })
+      self.ctx = self.canvas.getContext("2d");
       console.log('canvas created');
     };
   };
@@ -100,6 +103,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
           self.frameimgBWsize = params.frameimgBWsize;
           var nftEvent = new CustomEvent('nftMarker', {
             detail: {
+              numImage: numImage,
               numIset: nftMarker.numIset,
               widthNFT: nftMarker.width,
               heightNFT: nftMarker.height,
