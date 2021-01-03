@@ -2,11 +2,14 @@ var numIset;
 
 window.addEventListener('dispImageSet-loaded', function() {
   var ariset = new ARiset(893, 1117);
-    for (var i = 0; i < 9; i++) {
-    ariset.loadNFTMarker('data/pinball', i);
-    }
+  // We need to load the first Image to get numIset with the listener
+  ariset.loadNFTMarker('data/pinball', 0);  
     document.addEventListener('nftMarker', function (ev) {
       numIset = ev.detail.numIset;
+      // Now we can load the other images
+      for (var i = 1; i < numIset; i++) {
+      ariset.loadNFTMarker('data/pinball', i);
+      }
       var imageSetWidth = ev.detail.widthNFT;
       var imageSetHeight = ev.detail.heightNFT;
       var dpi = ev.detail.dpi;
