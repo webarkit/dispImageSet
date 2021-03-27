@@ -1,4 +1,4 @@
-var interval = setTimeout(function() {
+window.addEventListener('dispImageSet-loaded', function() {
   var ariset = new ARiset(893, 1117);
   ariset.loadNFTMarker('data/pinball');
   ariset.display();
@@ -24,4 +24,4 @@ var interval = setTimeout(function() {
     var contentDpi = document.createTextNode(dpi);
     divDpi.appendChild(contentDpi);
   })
-}, 200);
+})
