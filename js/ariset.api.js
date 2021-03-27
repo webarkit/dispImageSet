@@ -24,7 +24,7 @@
   ARiset.prototype.createCanvas = function () {
     if (typeof document !== "undefined") {
       var self = this;
-      this.canvas = document.createElement("canvas");
+      self.canvas = document.createElement("canvas");
       document.addEventListener('nftMarker', function (ev) {
         self.canvas.id = "iSet_" + ev.detail.numImage;
       })

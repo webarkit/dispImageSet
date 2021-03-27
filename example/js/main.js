@@ -8,13 +8,13 @@ window.addEventListener('dispImageSet-loaded', function() {
       numIset = ev.detail.numIset;
       // Now we can load the other images
       var i = 1;
-          while(i<numIset) { 
+          /*while(i<numIset) { 
               ariset.loadNFTMarker('data/pinball', i);
               i++;
             if (i===numIset){
               break;
             }
-          }
+          }*/
       var imageSetWidth = ev.detail.widthNFT;
       var imageSetHeight = ev.detail.heightNFT;
       var dpi = ev.detail.dpi;
