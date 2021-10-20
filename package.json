@@ -24,8 +24,8 @@
     "ecstatic": "^4.1.4"
   },
   "devDependencies": {
-    "http-server": "^0.12.3",
-    "watch": "^0.18.0"
+    "http-server": "^14.0.0",
+    "watch": "^1.0.2"
   },
   "scripts": {
     "build": "node tools/makem.js; echo Built at `date`",

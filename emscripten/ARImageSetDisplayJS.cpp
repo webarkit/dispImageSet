@@ -43,8 +43,9 @@ static int gARIsetID = 0;
 
 extern "C" {
 
-  int loadNFTMarker(arIset *arc, int surfaceSetCount,const char* filename) {
+  int loadNFTMarker(arIset *arc, int surfaceSetCount, int numImage, const char* filename) {
     ARLOG("Read ImageSet.\n");
+    ARLOGi("numImage is: %d\n", numImage);
     ar2UtilRemoveExt( (char*)filename );
     arc->imageSet = ar2ReadImageSet( (char*)filename );
     if( arc->imageSet == NULL ) {
@@ -54,10 +55,10 @@ extern "C" {
     ARLOG("  end.\n");
 
     arc->numIset = arc->imageSet->num;
-		arc->width_NFT = arc->imageSet->scale[0]->xsize;
-		arc->height_NFT = arc->imageSet->scale[0]->ysize;
-		arc->dpi_NFT = arc->imageSet->scale[0]->dpi;
-    arc->imgBW = arc->imageSet->scale[0]->imgBW;
+		arc->width_NFT = arc->imageSet->scale[numImage]->xsize;
+		arc->height_NFT = arc->imageSet->scale[numImage]->ysize;
+		arc->dpi_NFT = arc->imageSet->scale[numImage]->dpi;
+    arc->imgBW = arc->imageSet->scale[numImage]->imgBW;
 
     ARLOGi("printing pointer imgBW: %d\n", arc->imgBW);
 
@@ -76,14 +77,14 @@ extern "C" {
 		return (TRUE);
 	}
 
-  nftMarker readNFTMarker(int id, std::string datasetPathname) {
+  nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
     nftMarker nft;
 		if (arIsets.find(id) == arIsets.end()) { return nft; }
 		arIset *arc = &(arIsets[id]);
 
 		// Load marker(s).
 		int patt_id = arc->surfaceSetCount;
-		if (!loadNFTMarker(arc, patt_id, datasetPathname.c_str())) {
+		if (!loadNFTMarker(arc, patt_id, numImage, datasetPathname.c_str())) {
 			ARLOGe("ARimageFsetDisplay(): Unable to read NFT marker.\n");
 			return nft;
 		} else {
