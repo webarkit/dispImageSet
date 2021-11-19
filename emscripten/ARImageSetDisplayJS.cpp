@@ -1,3 +1,4 @@
+#include <iostream> 
 #include <AR/ar.h>
 #include <AR2/config.h>
 #include <AR2/imageFormat.h>
@@ -78,7 +79,8 @@ void draw()
   emscripten_cancel_main_loop();
 }
 
-void emscripten_canvas(int width, int height, const char* name, float* texData) {
+//void emscripten_canvas(int width, int height, const char* name, float* texData) {
+void emscripten_canvas(int width, int height, const char* name, unsigned char* texData) {
   emscripten_set_canvas_element_size(name, width, height);
   EmscriptenWebGLContextAttributes attr;
   emscripten_webgl_init_context_attributes(&attr);
@@ -151,11 +153,10 @@ void emscripten_canvas(int width, int height, const char* name, float* texData) 
   glBindTexture(GL_TEXTURE_2D, tex);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
+  /*glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE,
+               GL_FLOAT, texData);*/
   glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE,
-               GL_FLOAT, texData);
-  /*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
-               GL_UNSIGNED_BYTE, texData);*/
+               GL_UNSIGNED_BYTE, texData);
   emscripten_set_main_loop(draw, 0, 0);
 }
 
@@ -218,8 +219,8 @@ nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
     for (int x = 0; x < width; ++x) {
       floatTexData[y * width + x] = PIX(x, y);
     }
-  emscripten_canvas(256, 256, "#canvas", floatTexData);
-  //emscripten_canvas(arc->width_NFT, arc->height_NFT, "#canvas", arc->imgBW);
+  //emscripten_canvas(256, 256, "#canvas", floatTexData);
+  emscripten_canvas(arc->width_NFT, arc->height_NFT, "#canvas", arc->imgBW);
   //emscripten_canvas(256, 256, "#canvas", arc->imgBW);
 
   EM_ASM_(
@@ -232,7 +233,6 @@ nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
         frameMalloc["frameimgBWsize"] = $2;
       },
       arc->id, arc->imgBW, arc->imgBWsize);
-
   nft.numIset = arc->numIset;
   nft.widthNFT = arc->width_NFT;
   nft.heightNFT = arc->height_NFT;

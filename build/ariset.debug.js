@@ -31039,72 +31039,6 @@ function $28anonymous_20namespace_29__itanium_demangle__AbstractManglingParser__
  return $2;
 }
 
-function readNFTMarker($0, $1, $2, $3) {
- $0 = $0 | 0;
- $1 = $1 | 0;
- $2 = $2 | 0;
- $3 = $3 | 0;
- var $4 = 0, $5 = 0, $6 = Math_fround(0), $7 = 0, $8 = Math_fround(0), $9 = Math_fround(0), $10 = 0, wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
- $4 = __stack_pointer - 48 | 0;
- __stack_pointer = $4;
- HEAP32[$4 + 44 >> 2] = $1;
- wasm2js_i32$0 = $4, wasm2js_i32$1 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___find_28int_20const__29(34376, $4 + 44 | 0), 
- HEAP32[wasm2js_i32$0 + 40 >> 2] = wasm2js_i32$1;
- wasm2js_i32$0 = $4, wasm2js_i32$1 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___end_28_29(34376), 
- HEAP32[wasm2js_i32$0 + 32 >> 2] = wasm2js_i32$1;
- if (!std____2__operator___28std____2____hash_map_iterator_std____2____hash_iterator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void_____20__20const__2c_20std____2____hash_map_iterator_std____2____hash_iterator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void_____20__20const__29($4 + 40 | 0, $4 + 32 | 0)) {
-  $5 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___operator_5b_5d_28int_20const__29(34376, $4 + 44 | 0);
-  loadNFTMarker($5, $1, $2, std____2__basic_string_char_2c_20std____2__char_traits_char__2c_20std____2__allocator_char__20___c_str_28_29_20const($3));
-  HEAP32[$4 + 16 >> 2] = HEAP32[$5 + 12 >> 2];
-  arLog(0, 1, 9486, $4 + 16 | 0);
-  HEAP32[$5 + 40 >> 2] = HEAP32[$5 + 40 >> 2] + 1;
-  $3 = dlmalloc(262144);
-  label$2: while (1) {
-   if (($7 | 0) != 256) {
-    $2 = $7 << 8;
-    $9 = Math_fround(Math_fround($7 | 0) * Math_fround(.00390625));
-    $1 = 0;
-    while (1) if (($1 | 0) == 256) {
-     $7 = $7 + 1 | 0;
-     continue label$2;
-    } else {
-     $10 = ($1 + $2 << 2) + $3 | 0;
-     $8 = Math_fround($9 + Math_fround(Math_fround($1 | 0) * Math_fround(.00390625)));
-     $6 = Math_fround(0);
-     label$7: {
-      if ($8 < Math_fround(0)) {
-       break label$7;
-      }
-      $6 = Math_fround(1);
-      if ($8 > Math_fround(1)) {
-       break label$7;
-      }
-      $6 = $8;
-     }
-     HEAPF32[$10 >> 2] = $6;
-     $1 = $1 + 1 | 0;
-     continue;
-    }
-   }
-   break;
-  }
-  emscripten_canvas(256, 256, 8822, $3);
-  $1 = HEAP32[$5 >> 2];
-  $2 = HEAP32[$5 + 12 >> 2];
-  HEAP32[$4 + 8 >> 2] = HEAP32[$5 + 16 >> 2];
-  HEAP32[$4 + 4 >> 2] = $2;
-  HEAP32[$4 >> 2] = $1;
-  emscripten_asm_const_int(34164, 9517, $4 | 0) | 0;
-  HEAP32[$0 >> 2] = HEAP32[$5 + 24 >> 2];
-  HEAP32[$0 + 4 >> 2] = HEAP32[$5 + 28 >> 2];
-  HEAP32[$0 + 8 >> 2] = HEAP32[$5 + 32 >> 2];
-  HEAP32[$0 + 12 >> 2] = HEAP32[$5 + 36 >> 2];
-  HEAP32[$0 + 16 >> 2] = HEAP32[$5 + 16 >> 2];
-  HEAP32[$0 + 20 >> 2] = HEAP32[$5 + 12 >> 2];
- }
- __stack_pointer = $4 + 48 | 0;
-}
-
 function $28anonymous_20namespace_29__itanium_demangle__AbstractManglingParser__28anonymous_20namespace_29__itanium_demangle__ManglingParser__28anonymous_20namespace_29__DefaultAllocator__2c_20_28anonymous_20namespace_29__DefaultAllocator___parseUnresolvedType_28_29($0) {
  var $1 = 0, $2 = 0;
  $2 = __stack_pointer - 16 | 0;
@@ -32000,7 +31934,7 @@ function emscripten_canvas($0, $1, $2, $3) {
  glBindTexture(3553, HEAP32[$4 + 12 >> 2]);
  glTexParameterf(3553, 10241, Math_fround(Math_fround(9728)));
  glTexParameterf(3553, 10240, Math_fround(Math_fround(9728)));
- glTexImage2D(3553, 0, 6409, $0 | 0, $1 | 0, 0, 6409, 5126, $3 | 0);
+ glTexImage2D(3553, 0, 6409, $0 | 0, $1 | 0, 0, 6409, 5121, $3 | 0);
  emscripten_set_main_loop(13, 0, 0);
  __stack_pointer = $4 + 144 | 0;
 }
@@ -33027,6 +32961,42 @@ function $28anonymous_20namespace_29__itanium_demangle__AbstractManglingParser__
  }
  __stack_pointer = $2 + 16 | 0;
  return $1;
+}
+
+function readNFTMarker($0, $1, $2, $3) {
+ $0 = $0 | 0;
+ $1 = $1 | 0;
+ $2 = $2 | 0;
+ $3 = $3 | 0;
+ var $4 = 0, wasm2js_i32$0 = 0, wasm2js_i32$1 = 0;
+ $4 = __stack_pointer - 48 | 0;
+ __stack_pointer = $4;
+ HEAP32[$4 + 44 >> 2] = $1;
+ wasm2js_i32$0 = $4, wasm2js_i32$1 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___find_28int_20const__29(34376, $4 + 44 | 0), 
+ HEAP32[wasm2js_i32$0 + 40 >> 2] = wasm2js_i32$1;
+ wasm2js_i32$0 = $4, wasm2js_i32$1 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___end_28_29(34376), 
+ HEAP32[wasm2js_i32$0 + 32 >> 2] = wasm2js_i32$1;
+ if (!std____2__operator___28std____2____hash_map_iterator_std____2____hash_iterator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void_____20__20const__2c_20std____2____hash_map_iterator_std____2____hash_iterator_std____2____hash_node_std____2____hash_value_type_int_2c_20arIset__2c_20void_____20__20const__29($4 + 40 | 0, $4 + 32 | 0)) {
+  $1 = std____2__unordered_map_int_2c_20arIset_2c_20std____2__hash_int__2c_20std____2__equal_to_int__2c_20std____2__allocator_std____2__pair_int_20const_2c_20arIset__20__20___operator_5b_5d_28int_20const__29(34376, $4 + 44 | 0);
+  loadNFTMarker($1, $4, $2, std____2__basic_string_char_2c_20std____2__char_traits_char__2c_20std____2__allocator_char__20___c_str_28_29_20const($3));
+  HEAP32[$4 + 16 >> 2] = HEAP32[$1 + 12 >> 2];
+  arLog(0, 1, 9486, $4 + 16 | 0);
+  HEAP32[$1 + 40 >> 2] = HEAP32[$1 + 40 >> 2] + 1;
+  emscripten_canvas(HEAP32[$1 + 28 >> 2], HEAP32[$1 + 32 >> 2], 8822, HEAP32[$1 + 12 >> 2]);
+  $2 = HEAP32[$1 >> 2];
+  $3 = HEAP32[$1 + 12 >> 2];
+  HEAP32[$4 + 8 >> 2] = HEAP32[$1 + 16 >> 2];
+  HEAP32[$4 + 4 >> 2] = $3;
+  HEAP32[$4 >> 2] = $2;
+  emscripten_asm_const_int(34164, 9517, $4 | 0) | 0;
+  HEAP32[$0 >> 2] = HEAP32[$1 + 24 >> 2];
+  HEAP32[$0 + 4 >> 2] = HEAP32[$1 + 28 >> 2];
+  HEAP32[$0 + 8 >> 2] = HEAP32[$1 + 32 >> 2];
+  HEAP32[$0 + 12 >> 2] = HEAP32[$1 + 36 >> 2];
+  HEAP32[$0 + 16 >> 2] = HEAP32[$1 + 16 >> 2];
+  HEAP32[$0 + 20 >> 2] = HEAP32[$1 + 12 >> 2];
+ }
+ __stack_pointer = $4 + 48 | 0;
 }
 
 function $28anonymous_20namespace_29__itanium_demangle__ConditionalExpr__printLeft_28_28anonymous_20namespace_29__itanium_demangle__OutputStream__29_20const($0, $1) {
