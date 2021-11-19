@@ -4,7 +4,7 @@ window.addEventListener('dispImageSet-loaded', function() {
   var ariset = new ARiset(893, 1117);
   // We need to load the first Image to get numIset with the listener
   ariset.loadNFTMarker('data/pinball', 0);
-  ariset.display();
+  //ariset.display();
     document.addEventListener('nftMarker', function (ev) {
       numIset = ev.detail.numIset;
       var imageSetWidth = ev.detail.widthNFT;
