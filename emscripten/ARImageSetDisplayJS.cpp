@@ -54,7 +54,7 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
     var canvas = document.createElement("canvas");
     var idx = $0;
     var canvasId = "canvas" + idx;
-    canvas.id = canvasId;
+    canvas.setAttribute("id", canvasId);
     console.log("canvas id: ", canvasId);
     var ctx = canvas.getContext("2d");
     var width = $1;
@@ -70,8 +70,8 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
     );
     var id = new ImageData(
       new Uint8ClampedArray(canvas.width * canvas.height * 4),
-      canvas.width,
-      canvas.height
+      ctx.canvas.width,
+      ctx.canvas.height
     );
     console.log("Data: ", Buffer);
     console.log("Data length: ", Buffer.length);
@@ -83,6 +83,7 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
       id.data[j + 3] = 255;
     };
     ctx.putImageData(id, 0, 0);
+    document.body.appendChild(canvas);
   },
   id,
   width,
