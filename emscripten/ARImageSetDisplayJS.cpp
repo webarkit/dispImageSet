@@ -1,4 +1,4 @@
-#include <iostream> 
+#include <iostream>
 #include <AR/ar.h>
 #include <AR2/config.h>
 #include <AR2/imageFormat.h>
@@ -9,6 +9,7 @@
 #include <KPM/kpm.h>
 #include <emscripten.h>
 #include <emscripten/html5.h>
+#include <emscripten/val.h>
 #include <stdio.h>
 #include <string>
 #include <unordered_map>
@@ -52,7 +53,7 @@ GLuint program;
 #define PIX(x, y) CLAMP(PIX_C(x, y))
 
 extern "C" {
-
+using emscripten::val;
 void draw()
 {
   int w, h;
@@ -160,6 +161,26 @@ void emscripten_canvas(int width, int height, const char* name, unsigned char* t
   emscripten_set_main_loop(draw, 0, 0);
 }
 
+void emscripten_canvas2(int width, int height, std::string name, unsigned char* texData)
+{
+  val::global().set("a", val::u8string(u8"canvas"));
+  val::global("console").call<val>("log", val::global("a"));
+  val id = val(name.c_str());
+  val::global("console").call<val>("log", id);
+  val canvas = val::global("document").call<val>("getElementById", id);
+  val ctx = canvas.call<val>("getContext", val("2d"));
+  ctx.set("fillStyle", val("green"));
+  ctx.call<void>("fillRect", 10, 10, 150, 100);
+}
+
+void emscripten_canvas3()
+{
+  val canvas = val::global("document").call<val>("getElementById", val("canvas"));
+  val ctx = canvas.call<val>("getContext", val("2d"));
+  ctx.set("fillStyle", "green");
+  ctx.call<void>("fillRect", 10, 10, 150, 100);
+}
+
 int loadNFTMarker(arIset *arc, int surfaceSetCount, int numImage,
                   const char *filename) {
   ARLOG("Read ImageSet.\n");
@@ -219,8 +240,9 @@ nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
     for (int x = 0; x < width; ++x) {
       floatTexData[y * width + x] = PIX(x, y);
     }
-  //emscripten_canvas(256, 256, "#canvas", floatTexData);
-  emscripten_canvas(arc->width_NFT, arc->height_NFT, "#canvas", arc->imgBW);
+  //emscripten_canvas(256, 256, "#canvas", (unsigned char*)floatTexData);
+  emscripten_canvas2(arc->width_NFT, arc->height_NFT, "canvas", arc->imgBW);
+  //emscripten_canvas3();
   //emscripten_canvas(256, 256, "#canvas", arc->imgBW);
 
   EM_ASM_(
