@@ -163,14 +163,38 @@ void emscripten_canvas(int width, int height, const char* name, unsigned char* t
 
 void emscripten_canvas2(int width, int height, std::string name, unsigned char* texData)
 {
-  val::global().set("a", val::u8string(u8"canvas"));
-  val::global("console").call<val>("log", val::global("a"));
-  val id = val(name.c_str());
-  val::global("console").call<val>("log", id);
-  val canvas = val::global("document").call<val>("getElementById", id);
-  val ctx = canvas.call<val>("getContext", val("2d"));
-  ctx.set("fillStyle", val("green"));
-  ctx.call<void>("fillRect", 10, 10, 150, 100);
+  EM_ASM_({
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = $0;
+    var height = $1;
+    ctx.canvas.width = width;
+    ctx.canvas.height = height;
+    var Buffer = new Uint8ClampedArray(
+      Module.HEAPU8.buffer,
+      $2,
+      width*height*4
+    );
+    var id = new ImageData(
+      new Uint8ClampedArray(canvas.width * canvas.height * 4),
+      canvas.width,
+      canvas.height
+    );
+    console.log("Data: ", Buffer);
+    console.log("Data length: ", Buffer.length);
+    for (var i = 0, j = 0; i < Buffer.length; i++, j += 4) {
+      var v = Buffer[i];
+      id.data[j + 0] = v;
+      id.data[j + 1] = v;
+      id.data[j + 2] = v;
+      id.data[j + 3] = 255;
+    };
+    ctx.putImageData(id, 0, 0);
+  },
+  width,
+  height,
+  texData
+  );
 }
 
 void emscripten_canvas3()
@@ -255,6 +279,7 @@ nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
         frameMalloc["frameimgBWsize"] = $2;
       },
       arc->id, arc->imgBW, arc->imgBWsize);
+
   nft.numIset = arc->numIset;
   nft.widthNFT = arc->width_NFT;
   nft.heightNFT = arc->height_NFT;
