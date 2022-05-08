@@ -24,7 +24,7 @@
     "ecstatic": "^4.1.4"
   },
   "devDependencies": {
-    "http-server": "^14.0.0",
+    "http-server": "^14.1.0",
     "watch": "^1.0.2"
   },
   "scripts": {
