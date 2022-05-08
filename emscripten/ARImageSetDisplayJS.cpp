@@ -84,6 +84,7 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
     };
     ctx.putImageData(id, 0, 0);
     document.body.appendChild(canvas);
+    Module._free(Buffer);
   },
   id,
   width,
@@ -94,7 +95,7 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
 
 int loadNFTMarker(arIset *arc, int surfaceSetCount, int numImage,
                   const char *filename) {
-  ARLOG("Read ImageSet.\n");
+  ARLOGi("Read ImageSet.\n");
   ARLOGi("numImage is: %d\n", numImage);
   ar2UtilRemoveExt((char *)filename);
   arc->imageSet = ar2ReadImageSet((char *)filename);
@@ -102,7 +103,7 @@ int loadNFTMarker(arIset *arc, int surfaceSetCount, int numImage,
     ARLOGe("file open error: %s.iset\n", filename);
     exit(0);
   }
-  ARLOG("  end.\n");
+  ARLOGi("  end.\n");
 
   arc->numIset = arc->imageSet->num;
   arc->width_NFT = arc->imageSet->scale[numImage]->xsize;
@@ -120,8 +121,6 @@ int loadNFTMarker(arIset *arc, int surfaceSetCount, int numImage,
   ARLOGi("imgBW filled\n");
 
   ARLOGi("  Done.\n");
-
-  ARLOGi("imgsizePointer: %d\n", arc->imgBWsize);
 
   ARLOGi("Loading of NFT data complete.\n");
   return (TRUE);
@@ -149,23 +148,10 @@ nftMarker readNFTMarker(int id, int numImage, std::string datasetPathname) {
     create_emscripten_canvas(i, arc->imageSet->scale[i]->xsize, arc->imageSet->scale[i]->ysize, arc->imageSet->scale[i]->imgBW);
   }
 
-  EM_ASM_(
-      {
-        if (!ariset["frameMalloc"]) {
-          ariset["frameMalloc"] = ({});
-        }
-        var frameMalloc = ariset["frameMalloc"];
-        frameMalloc["frameIbwpointer"] = $1;
-        frameMalloc["frameimgBWsize"] = $2;
-      },
-      arc->id, arc->imgBW, arc->imgBWsize);
-
   nft.numIset = arc->numIset;
   nft.widthNFT = arc->width_NFT;
   nft.heightNFT = arc->height_NFT;
   nft.dpiNFT = arc->dpi_NFT;
-  nft.imgBWsize = arc->imgBWsize;
-  nft.pointer = (int)arc->imgBW;
 
   return nft;
 }
