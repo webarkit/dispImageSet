@@ -14,59 +14,16 @@
     this.imageSetWidth = 0;
     this.imageSetHeight = 0;
     this.dpi = 0;
-    this.frameIbwpointer = null;
-    this.frameimgBWsize = null;
-    this.canvas = null;
-    this.ctx = null;
     this._init(width, height);
   };
 
-  ARiset.prototype.createCanvas = function () {
-    if (typeof document !== "undefined") {
-      var self = this;
-      self.canvas = document.createElement("canvas");
-      document.addEventListener('nftMarker', function (ev) {
-        self.canvas.id = "iSet_" + ev.detail.numImage;
-      })
-      self.ctx = self.canvas.getContext("2d");
-      console.log('canvas created');
-    };
-  };
-
   ARiset.prototype.display = function () {
-    this.createCanvas();
-    document.body.appendChild(this.canvas);
-
     var self = this;
     document.addEventListener('nftMarker', function(ev) {
-      self.canvas.width = ev.detail.widthNFT;
-      self.canvas.height = ev.detail.heightNFT;
       self.numIset = ev.detail.numIset;
       self.imageSetWidth = ev.detail.widthNFT;
       self.imageSetHeight = ev.detail.heightNFT;
       self.dpi = ev.detail.dpi;
-
-      var debugBuffer = new Uint8ClampedArray(
-        Module.HEAPU8.buffer,
-        self.frameIbwpointer,
-        self.frameimgBWsize
-      );
-      var id = new ImageData(
-        new Uint8ClampedArray(self.canvas.width * self.canvas.height * 4),
-        self.canvas.width,
-        self.canvas.height
-      );
-      for (var i = 0, j = 0; i < debugBuffer.length; i++, j += 4) {
-        var v = debugBuffer[i];
-        id.data[j + 0] = v;
-        id.data[j + 1] = v;
-        id.data[j + 2] = v;
-        id.data[j + 3] = 255;
-      }
-
-      self.ctx.putImageData(id, 0, 0);
-
-      Module._free(debugBuffer);
     })
   };
 
@@ -79,9 +36,6 @@
         markerURL,
         function (nftMarker) {
           console.log(nftMarker);
-          var params = ariset.frameMalloc;
-          self.frameIbwpointer = params.frameIbwpointer;
-          self.frameimgBWsize = params.frameimgBWsize;
           var nftEvent = new CustomEvent('nftMarker', {
             detail: {
               numImage: numImage,
