@@ -7,45 +7,18 @@
     scope = global;
   }
 
-  var ARiset = function (width, height) {
+  var ARiset = function () {
     this.id = 0;
-    this.nftMarkerCount = 0;
-    this.numIset = 0;
-    this.imageSetWidth = 0;
-    this.imageSetHeight = 0;
-    this.dpi = 0;
-    this._init(width, height);
+    this._init();
   };
 
-  ARiset.prototype.display = function () {
-    var self = this;
-    document.addEventListener('nftMarker', function(ev) {
-      self.numIset = ev.detail.numIset;
-      self.imageSetWidth = ev.detail.widthNFT;
-      self.imageSetHeight = ev.detail.heightNFT;
-      self.dpi = ev.detail.dpi;
-    })
-  };
-
-  ARiset.prototype.loadNFTMarker = function (markerURL, numImage, onSuccess, onError) {
-    var self = this;
+  ARiset.prototype.loadNFTMarker = function (markerURL, onSuccess, onError) {
     if (markerURL) {
       return ariset.readNFTMarker(
         this.id,
-        numImage,
         markerURL,
         function (nftMarker) {
           console.log(nftMarker);
-          var nftEvent = new CustomEvent('nftMarker', {
-            detail: {
-              numImage: numImage,
-              numIset: nftMarker.numIset,
-              widthNFT: nftMarker.width,
-              heightNFT: nftMarker.height,
-              dpi: nftMarker.dpi
-            }
-          });
-          document.dispatchEvent(nftEvent);
         },
         onError
       );
@@ -60,18 +33,13 @@
     }
   };
 
-  ARiset.prototype.getImageSet = function () {
-    return this.imageSet;
-  };
-
-  ARiset.prototype._init = function (width, height) {
-    this.id = ariset.setup(width, height);
-
+  ARiset.prototype._init = function () {
+    this.id = ariset.setup();
   };
 
   var markerCount = 0;
 
-  function readNFTMarker(arId, numImage, url, callback, onError) {
+  function readNFTMarker(arId, url, callback, onError) {
     var mId = markerCount++;
     var prefix = "/markerNFT_" + mId;
     var filename1 = prefix + ".fset";
@@ -89,7 +57,7 @@
               url + ".fset3",
               filename3,
               function () {
-                var id = Module._readNFTMarker(arId, numImage, prefix);
+                var id = Module._readNFTMarker(arId, prefix);
                 if (callback) callback(id);
               },
               function(errorNumber) {
@@ -146,7 +114,7 @@
     readNFTMarker: readNFTMarker
   };
 
-  var FUNCTIONS = ["setup", "display", "getImageSet"];
+  var FUNCTIONS = ["setup"];
 
   function runWhenLoaded() {
     FUNCTIONS.forEach(function (n) {
