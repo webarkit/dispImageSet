@@ -13,12 +13,20 @@
   };
 
   ARiset.prototype.loadNFTMarker = function (markerURL, onSuccess, onError) {
+    var self = this;
     if (markerURL) {
       return ariset.readNFTMarker(
         this.id,
         markerURL,
         function (nftMarker) {
-          console.log(nftMarker);
+          if(nftMarker) { 
+            var nftEvent = new CustomEvent('nftNumIset', {
+              detail: {
+                numIset: ariset.getNumIset(self.id),             
+              }
+            });
+            document.dispatchEvent(nftEvent);
+          }
         },
         onError
       );
@@ -114,7 +122,7 @@
     readNFTMarker: readNFTMarker
   };
 
-  var FUNCTIONS = ["setup"];
+  var FUNCTIONS = ["setup", "getNumIset"];
 
   function runWhenLoaded() {
     FUNCTIONS.forEach(function (n) {
