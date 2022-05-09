@@ -25,7 +25,7 @@ static int gARIsetID = 0;
 
 extern "C" {
 
-void create_emscripten_canvas(int id, int width, int height, unsigned char* texData)
+void create_emscripten_canvas(int id, int width, int height, int dpi, unsigned char* texData)
 {
   EM_ASM_({
     var canvas = document.createElement("canvas");
@@ -36,13 +36,14 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
     var ctx = canvas.getContext("2d");
     var width = $1;
     var height = $2;
+    var dpi = $3;
     console.log("canvas width: ", width);
     console.log("canvas height: ", height);
     ctx.canvas.width = width;
     ctx.canvas.height = height;
     var Buffer = new Uint8ClampedArray(
       Module.HEAPU8.buffer,
-      $3,
+      $4,
       width*height*4
     );
     var id = new ImageData(
@@ -60,12 +61,23 @@ void create_emscripten_canvas(int id, int width, int height, unsigned char* texD
       id.data[j + 3] = 255;
     };
     ctx.putImageData(id, 0, 0);
-    document.body.appendChild(canvas);
+    var rootEl = document.createElement('div');
+    rootEl.appendChild(canvas);
+    var textContainer = document.createElement('p');
+    var widthEl = document.createTextNode('Width: ' + width + ' ');
+    textContainer.appendChild(widthEl);
+    var heightEl = document.createTextNode('Height: ' + height + ' ');
+    textContainer.appendChild(heightEl);
+    var dpiEl = document.createTextNode('Dpi: ' + dpi + ' ');
+    textContainer.appendChild(dpiEl);
+    rootEl.appendChild(textContainer);
+    document.body.appendChild(rootEl);
     Module._free(Buffer);
   },
   id,
   width,
   height,
+  dpi,
   texData
   );
 }
@@ -86,6 +98,14 @@ int loadNFTMarker(arIset *arc, const char *filename) {
   return (TRUE);
 }
 
+int getNumIset(int id){
+  if (arIsets.find(id) == arIsets.end()) {
+    return false;
+  }
+  arIset *arc = &(arIsets[id]);
+  return arc->numIset;
+}
+
 bool readNFTMarker(int id, std::string datasetPathname) {
   if (arIsets.find(id) == arIsets.end()) {
     return false;
@@ -102,7 +122,11 @@ bool readNFTMarker(int id, std::string datasetPathname) {
 
   int numIset = arc->numIset;
   for(int i = 0; i < numIset; i++){
-    create_emscripten_canvas(i, arc->imageSet->scale[i]->xsize, arc->imageSet->scale[i]->ysize, arc->imageSet->scale[i]->imgBW);
+    int width = arc->imageSet->scale[i]->xsize;
+    int height = arc->imageSet->scale[i]->ysize;
+    int dpi = (int)arc->imageSet->scale[i]->dpi;
+    unsigned char * imgBW = arc->imageSet->scale[i]->imgBW;
+    create_emscripten_canvas(i, width, height, dpi, imgBW);
   }
 
   ARLOGi("  Done.\n");
