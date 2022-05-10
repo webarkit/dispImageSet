@@ -1,6 +1,6 @@
 {
   "name": "dispImageSet",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "js/index",
   "typings": "js/index",
   "description": "dispImageSet based on WebARKitLib, ported thanks to Emscripten",

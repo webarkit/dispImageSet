@@ -10,6 +10,8 @@
   var ARiset = function () {
     this.id = 0;
     this._init();
+    this.version = "0.1.0";
+    console.log("dispImageSet version: ", this.version);
   };
 
   ARiset.prototype.loadNFTMarker = function (markerURL, onSuccess, onError) {
