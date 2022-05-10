@@ -1,6 +1,6 @@
 {
   "name": "dispImageSet",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "js/index",
   "typings": "js/index",
   "description": "dispImageSet based on WebARKitLib, ported thanks to Emscripten",
@@ -20,12 +20,11 @@
     "url": "https://github.com/kalwalt/dispImageSet/issues"
   },
   "dependencies": {
-    "glob": "^7.1.4",
+    "glob": "^8.0.1",
     "ecstatic": "^4.1.4"
   },
   "devDependencies": {
-    "http-server": "^14.1.0",
-    "watch": "^1.0.2"
+    "http-server": "^14.1.0"
   },
   "scripts": {
     "build": "node tools/makem.js; echo Built at `date`",
